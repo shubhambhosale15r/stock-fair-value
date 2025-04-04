@@ -43,10 +43,12 @@ st.sidebar.markdown("Provide the following details to calculate the fair price:"
 book_value_per_share = st.sidebar.number_input("Book Value per Share (₹):", min_value=0.0, value=0.0, step=0.01)
 roe = st.sidebar.number_input("ROE (Return on Equity, %):", min_value=0.0, value=0.0, step=0.01)
 pe_ratio = st.sidebar.number_input("P/E Ratio:", min_value=0.0, value=0.0, step=0.01)
+margin_of_safety = st.sidebar.number_input("Margin of Safety (%):", min_value=0.0, max_value=100.0, value=0.0, step=0.1)
 
 # Action Button
 if st.sidebar.button("Calculate Fair Price"):
     fair_price = calculate_fair_price(book_value_per_share, roe, pe_ratio)
+    final_buy_price = fair_price - (fair_price * (margin_of_safety / 100))
 
     # Display Result with Style
     st.markdown(
@@ -62,6 +64,8 @@ if st.sidebar.button("Calculate Fair Price"):
             ">
             <h2 style="color: #4CAF50;">Fair Price</h2>
             <h1 style="color: #212121;">₹{fair_price:.2f}</h1>
+            <h3 style="color: #4CAF50;">Final Buy Price (After Margin of Safety)</h3>
+            <h1 style="color: #d32f2f;">₹{final_buy_price:.2f}</h1>
         </div>
         """, unsafe_allow_html=True
     )
@@ -76,7 +80,6 @@ st.markdown(
         margin-top: 50px;
         color: #555555;
     ">
-    
     </footer>
     """, unsafe_allow_html=True
 )
