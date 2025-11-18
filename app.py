@@ -43,12 +43,13 @@ st.sidebar.markdown("Provide the following details to calculate the fair price:"
 book_value_per_share = st.sidebar.number_input("Book Value per Share (₹):", min_value=0.0, value=0.0, step=0.01)
 pe_ratio_avg = st.sidebar.number_input("3-Year Average P/E Ratio:", min_value=0.1, value=10.0, step=0.1)
 actual_eps = st.sidebar.number_input("Actual EPS (₹):", min_value=0.01, value=1.0, step=0.01)
-margin_of_safety = st.sidebar.number_input("Margin of Safety (%):", min_value=0.0, max_value=100.0, value=0.0, step=0.1)
+margin_of_safety = st.sidebar.number_input("Margin of Safety (%):", min_value=0.0, max_value=100.0, value=20.0, step=0.1)
 
 # Action Button
 if st.sidebar.button("Calculate Fair Price"):
     fair_price, theoretical_eps, ratio = calculate_fair_price(book_value_per_share, pe_ratio_avg, actual_eps)
     final_buy_price = fair_price - (fair_price * (margin_of_safety / 100))
+    stop_loss_price = final_buy_price - (final_buy_price * (margin_of_safety / 100))
 
     # Input Summary
     st.markdown(f"""
@@ -77,6 +78,7 @@ if st.sidebar.button("Calculate Fair Price"):
             <h1 style="color: #212121;">₹{fair_price:.2f}</h1>
             <h3 style="color: #4CAF50;">Final Buy Price (After Margin of Safety)</h3>
             <h1 style="color: #d32f2f;">₹{final_buy_price:.2f}</h1>
+            <h1 style="color: #d32f2f;">Stoploss Price ₹{final_buy_price:.2f}</h1>
         </div>
         """, unsafe_allow_html=True
     )
