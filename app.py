@@ -50,6 +50,7 @@ if st.sidebar.button("Calculate Fair Price"):
     fair_price, theoretical_eps, ratio = calculate_fair_price(book_value_per_share, pe_ratio_avg, actual_eps)
     final_buy_price = fair_price - (fair_price * (margin_of_safety / 100))
     stop_loss_price = final_buy_price - (final_buy_price * (margin_of_safety / 100))
+    target_price = fair_price + (fair_price * (margin_of_safety / 100))
 
     # Input Summary
     st.markdown(f"""
@@ -78,7 +79,8 @@ if st.sidebar.button("Calculate Fair Price"):
             <h1 style="color: #212121;">₹{fair_price:.2f}</h1>
             <h3 style="color: #4CAF50;">Final Buy Price (After Margin of Safety)</h3>
             <h1 style="color: #d32f2f;">₹{final_buy_price:.2f}</h1>
-            <h1 style="color: #d32f2f;">Stoploss Price ₹{stop_loss_price:.2f}</h1>
+            <h3 style="color: #d32f2f;">Stoploss Price ₹{stop_loss_price:.2f}</h3>
+            <h3 style="color: #4CAF50;">Target Price ₹{target_price:.2f}</h3>
         </div>
         """, unsafe_allow_html=True
     )
