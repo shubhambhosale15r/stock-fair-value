@@ -78,7 +78,7 @@ if st.sidebar.button("Calculate Fair Price"):
             <h1 style="color: #212121;">₹{fair_price:.2f}</h1>
             <h3 style="color: #4CAF50;">Final Buy Price (After Margin of Safety)</h3>
             <h1 style="color: #d32f2f;">₹{final_buy_price:.2f}</h1>
-            <h1 style="color: #d32f2f;">Stoploss Price ₹{final_buy_price:.2f}</h1>
+            <h1 style="color: #d32f2f;">Stoploss Price ₹{stop_loss_price:.2f}</h1>
         </div>
         """, unsafe_allow_html=True
     )
